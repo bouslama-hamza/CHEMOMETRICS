@@ -1,0 +1,119 @@
+{% extends "app/base_app.html" %}
+{% block content %}
+{% load static %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <h5 class="card-header">Put Your File Input Here</h5>
+            <div class="card-body demo-vertical-spacing demo-only-element">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        <input type="file" class="form-control" name="data" id="inputGroupFile02">
+                        <button type="submit" class="input-group-text" for="inputGroupFile02">Upload</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+{% if not result %}
+<div class="row">
+    <div class="col-lg">
+        <div class="card mb-4 mb-lg-0">
+            <h5 class="card-header">Recommendation</h5>
+            <div class="card-body">
+                <blockquote class="blockquote mt-3">
+                    <p class="mb-0">Allow the app to manage the process for a short period. This ensures that necessary permissions are granted temporarily, allowing the application to perform its functions without prolonged access. Make sure to monitor and revoke permissions as needed to maintain security.</p>
+                </blockquote>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+                <blockquote class="blockquote mt-3">
+                    <p class="mb-0">Verify the input size to ensure it falls within acceptable limits. Proper input validation helps prevent errors and performance issues. Implement checks that validate data consistency and integrity before processing.</p>
+                </blockquote>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+                <blockquote class="blockquote mt-3">
+                    <p class="mb-0">Ensure a stable and fast internet connection is available. Reliable connectivity is crucial for applications that require real-time data access or online functionalities. Consider using network monitoring tools to detect and address connectivity issues promptly.</p>
+                </blockquote>
+            </div>
+            <hr class="m-0">
+            <div class="card-body">
+                <blockquote class="blockquote mt-3">
+                    <p class="mb-0">Provide a clear and accessible way for users to contact support if issues arise. Include comprehensive contact details or a dedicated help section within the application. Quick access to support can significantly enhance user experience and resolve problems efficiently.</p>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <h5 class="card-header">Striped rows</h5>
+    <div id="chart"></div>
+</div>
+<br>
+<div class="card">
+    <h5 class="card-header">Prediction Table Represontation</h5>
+    <div class="table-responsive text-nowrap">
+      <table class="table table-striped">
+            <thead>
+            <tr><!--  
+                <th>Element Chosed</th>
+                <th>MSE For Linear Regression</th>
+                <th>R2 Score For Linear Regression</th>
+                <th>MSE For PLS Regression</th>
+                <th>R2 Score For PLS Regression</th>
+                <th>MSE For Elastic Net</th>
+                <th>R2 Score For Elastic Net</th>
+                <th>MSE For SMIO</th>
+                <th>R2 Score For SMIO</th>
+                -->
+                <th>Model Chosed</th>
+                {% for data in result.lr %}
+                    <th>{{ data }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+        <tbody class="table-border-bottom-0">
+            <tr>
+                <td>Linear Regression</td>
+                {% for key , value in result.lr.items %}
+                    <td>{{ value|floatformat:4 }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>PLS Regression</td>
+                {% for key , value in result.pls.items %}
+                    <td>{{ value|floatformat:4 }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>SMIO</td>
+                {% for key , value in result.smio.items %}
+                    <td>{{ value|floatformat:4 }}</td>
+                {% endfor %}
+            </tr>
+            <tr>
+                <td>Elastic Net</td>
+                {% for key , value in result.elastic.items %}
+                    <td>{{ value|floatformat:4 }}</td>
+                {% endfor %}
+            </tr>
+            <script>
+                const data = '{{ graph_data|safe }}';
+                const json_data = JSON.parse(data);
+                console.log(json_data);
+            </script>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script src="{% static 'assets/js/script.js' %}"></script>
+{% endif %}
+{% endblock content %}

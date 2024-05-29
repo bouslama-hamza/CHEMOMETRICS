@@ -92,7 +92,7 @@ _The project's concept may seem a little sophisticated, but the steps for gettin
 
 3. Go To the Real Time Web App Directory
    ```
-   cd Real Time Web App/
+   cd Real Time Web/
    ```
 
 4. Install Django packages

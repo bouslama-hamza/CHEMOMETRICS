@@ -48,7 +48,7 @@ Wavelength selection helps mitigate the short data problem by reducing the dimen
 
 ## Project Context
 <div align="center">
-<a href="#">
+    <a href="#">
     <img src="./Images/concept.png" alt="Logo">
   </a>
 </div>
@@ -59,12 +59,13 @@ Our solution involves a systematic process of evaluating different wavelength se
 
 ## Project Architecture
 
-<div align="justify">
-<a href="#">
-    <img src="./Images/image.png" alt="Logo">
-  </a>
+<div align="center">
+    <a href="#">
+        <img src="./Images/image.png" alt="Logo">
+     </a>
 </div>
 <br>
+<div align="justify">
 To make our approach more proefficient, we implemented deffirent machine learning models using LazyPredict library which end up with chosing SMIO , Linear Regression , Glmnet , and PLSregression to predict the concentration of the chemical compound.
 </div>
 
